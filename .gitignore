@@ -1,0 +1,6 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+R/generate_data_Cox-old.R
+*.RDS

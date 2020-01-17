@@ -1,0 +1,34 @@
+Package: n1coxeval
+Type: Package
+Title: Simulation-based evaluation of n-of-1 Cox regression
+Version: 0.1.0
+Authors@R: c(person("Katherine", "Holsteen",
+                    role = c("aut", "cre"), 
+                    email = "kholsteen@alumni.stanford.edu"))
+Description: Functions to help in the use and evaluation of Cox regression for n-of-1 observational studies of recurrent event triggers. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.5.0),
+         magrittr
+Imports: coxphf,
+         dplyr,
+         furrr,
+         ggplot2,
+         gridExtra,
+         gtable,
+         hms,
+         msm,
+         purrr,
+         readr,
+         rlang,
+         scales,
+         stringr,
+         survival,
+         tibble,
+         tictoc,
+         tidyr,
+         viridisLite
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat
