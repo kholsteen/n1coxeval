@@ -40,7 +40,7 @@ plot_effect_class_multivar <- function(res) {
   g1 <- ggplot(resclass %>% dplyr::filter(beta_zero == 0)) +
     geom_col(
       aes(x = as.factor(n.events), y = value,
-          fill = key, alpha = key)
+          fill = key, color = key)
     ) +
     facet_wrap(beta.1.true ~ ., ncol = 1, #beta_zero ~ beta.1.true , #~ var.types + ub,
                labeller = ggplot2::labeller(
@@ -49,9 +49,9 @@ plot_effect_class_multivar <- function(res) {
                           purrr::map_chr(x, ~as.character(round(min(exp(as.numeric(.))-1, 4), 0))),
                           ": True Positive Effect (HR = ", round(exp(as.numeric(x))), ")")
                }  )) +
-
-    scale_fill_viridis_d("Classification" ) +
-    scale_alpha_manual("Classification", values = alphas) +
+    scale_fill_manual("Classification",
+                      values = gray_colors()) +
+    scale_color_manual("Classification", values = gray_lines()) +
     scale_y_continuous(
       breaks = NULL, minor_breaks = NULL,
       sec.axis = sec_axis(
@@ -60,7 +60,7 @@ plot_effect_class_multivar <- function(res) {
     xlab("Event Count") +
     ylab(element_blank()) +
     guides(fill = guide_legend(nrow = 1),
-           alpha = guide_legend(nrow = 1)) +
+           color = guide_legend(nrow = 1)) +
     #ggtitle("Classification of Univariable Effects") +
     #labs(subtitle = "With 25 candidate variables (4 True Positives and 21 True Negatives)") +
     theme_light() +
@@ -78,7 +78,7 @@ plot_effect_class_multivar <- function(res) {
   g2 <- ggplot(resclass_null) +
     geom_col(
       aes(x = as.factor(n.events), y = mean,
-          fill = key, alpha = key)
+          fill = key, color = key)
     ) +
     facet_wrap(beta_zero ~ ., ncol = 1, #beta_zero ~ beta.1.true , #~ var.types + ub,
                labeller = function(x) {
@@ -86,8 +86,9 @@ plot_effect_class_multivar <- function(res) {
                #space = "free_y", scales= "free_y") +
     ) +
 
-    scale_fill_viridis_d("Classification") +
-    scale_alpha_manual("Classification", values = alphas) +
+    scale_fill_manual("Classification",
+                      values = gray_colors()) +
+    scale_color_manual("Classification", values = gray_lines()) +
     scale_y_continuous(breaks = c(0:21),
                        minor_breaks = NULL,
                        expand = c(0,0.1)) +

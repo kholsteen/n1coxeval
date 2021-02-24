@@ -63,9 +63,9 @@ prior_ub_labels <- function() {
                             labels = c(16, 40, 648, "Firth", "None (MLE)")),
     scale_shape_discrete(name = "Prior 95% UB for HR",
                          labels = c(16, 40, 648, "Firth", "None (MLE)")),
-    scale_color_viridis_d(end = 0.7,
-                          labels = c(16, 40, 648, "Firth", "None (MLE)"),
-                          name = "Prior 95% UB for HR"),
+    scale_color_grey(start = 0.01, end = 0.7,
+                     labels = c(16, 40, 648, "Firth", "None (MLE)"),
+                      name = "Prior 95% UB for HR"),
     theme_light(),
     theme(legend.position = "top",
           strip.text = element_text(color = "black"),
@@ -73,4 +73,18 @@ prior_ub_labels <- function() {
   )
 }
 
+#' Grayscale colors for inferential classifications
+#' @keywords internal
+gray_colors <- function() {
+  c("gray99" ,  "gray85", "gray65",  "gray45",   "gray10", "gray95"  )
+
+}
+
+#' Outline colors for inferential classifications; goes with gray_colors()
+#' @keywords internal
+gray_lines <- function() {
+  c("gray85", "gray85", "black",
+    "gray45", "gray10", "gray15")
+
+}
 

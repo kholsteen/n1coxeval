@@ -6,9 +6,9 @@
 ##### SETUP ####
 # Modify these parameters
 ## Parent directory for simulation output
-parent_output_dir <- "path/to/your/dir"
+parent_output_dir <- "C:/Users/Katherine Holsteen/Documents/My Documents/Stanford Medicine Box/Code/n1-power/data" #"path/to/your/dir"
 ## string subfolder name to create for storing this run of the analysis
-run_date = "todaysdate"
+run_date = "2020-01-14"
 ## number of cores to use for parallel processing
 num_parallel_workers = 5
 ## number of participants to simulate; decrease for testing

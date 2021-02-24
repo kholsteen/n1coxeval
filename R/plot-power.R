@@ -58,8 +58,8 @@ plot_power <- function(data) {
   if (!test_null) {
 
     gp <- gp +
-      geom_hline(aes(yintercept = 0.5), col = "red", alpha = 0.25) +
-      geom_hline(aes(yintercept = 0.8), col = "orange", alpha = 0.25)
+      geom_hline(aes(yintercept = 0.5), col = "gray50", alpha = 0.25) +
+      geom_hline(aes(yintercept = 0.8), col = "gray50", alpha = 0.25)
   }
 
   gp <- gp +

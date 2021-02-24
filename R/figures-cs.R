@@ -9,7 +9,7 @@ figures_cs <- function(run_dir) {
   result_cs <- readRDS(file.path(run_dir, "sim=FALSE&mv=FALSE",
                                  "result1.rds"))
   jpeg(filename = file.path(run_dir, "figures", "fig-cs-est.jpg"),
-       width = 7, height = 6, units = "in", res = 1000)
+       width = 7, height = 6, units = "in", res = 900)
   plot(plot_cs_est(result_cs %>% rowwise_summary(),
                              vars = case_study_vars()))
   dev.off()

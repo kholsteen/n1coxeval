@@ -41,13 +41,19 @@ plot_effect_class <- function(res, univ = TRUE, vartype = "c") {
       gp <- ggplot(resclass %>% dplyr::filter(.data$var.types == v)) +
         geom_col(
           aes(x = as.factor(n.events), y = value,
-              fill = key, alpha = key)
+              fill = key, color = key),
+          #color = "gray50"
         ) +
         facet_grid(beta.true ~ ub,
                    labeller = lbl) +
-        scale_fill_viridis_d("Classification") +
-        scale_alpha_manual("Classification",
-                           values = alphas) +
+        scale_fill_manual("Classification",
+          values = gray_colors()) +
+        scale_color_manual("Classification", values = gray_lines()) +
+
+        # scale_fill_grey(#"Classification",
+        #                 start = 0.01, end = 0.99) +
+        # scale_alpha_manual("Classification",
+        #                    values = alphas) +
         #ggtitle(paste0("Classification of Effects: ", title)) +
 
         xlab("Event Count") +
@@ -58,7 +64,8 @@ plot_effect_class <- function(res, univ = TRUE, vartype = "c") {
               strip.text = element_text(color = "black"),
               strip.placement = "outside",
               panel.grid.major.x = element_blank(),
-              panel.grid.minor.x = element_blank())
+              panel.grid.minor.x = element_blank(),
+              axis.text.x = element_text(size = 7))
 
       plot(gp)
     #}

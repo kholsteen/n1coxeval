@@ -66,7 +66,7 @@ plot_univariate <- function(data,
                             linetype = "as.factor(ub)",
                             shape = "as.factor(ub)")) +
       geom_point() +
-      geom_hline(aes(yintercept = hline_intercept), col = "red") +
+      geom_hline(aes(yintercept = hline_intercept), col = "gray25") +
       plot_common_elements() +
       prior_ub_labels()
 

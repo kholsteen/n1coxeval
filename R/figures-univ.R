@@ -38,7 +38,7 @@ figures_univ <- function(run_dir) {
   cat("Plotting inferential classifications\n")
   filename <- "fig-univ-cont-effect-class.jpg"
   jpeg(filename = file.path(fig_dir, paste0(filename)),
-       width = 9, height = 6, units = "in", res = 1000)
+       width = 8, height = 5, units = "in", res = 1000)
   plot_effect_class(res, univ = TRUE, vartype = "c")
   dev.off()
 

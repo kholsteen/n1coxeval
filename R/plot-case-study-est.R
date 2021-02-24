@@ -17,7 +17,7 @@ plot_cs_est <- function(data, vars,
   alpha_values <- rep(c(0.9, 0.5), 3)
   names(alpha_values) <- class_labels
 
-  fill_values <- viridisLite::viridis(length(class_labels))
+  fill_values <- gray_colors() #viridisLite::viridis(length(class_labels))
   names(fill_values) <- class_labels
 
   ### These are cut off at 4 to make the graph easier to reac
@@ -47,7 +47,13 @@ plot_cs_est <- function(data, vars,
                                                   "40" = 0,
                                                   "648" = 0.4,
                                                   "1000" = 0.8)) %>%
-    dplyr::filter(.data$var %in% vars)
+    dplyr::filter(.data$var %in% vars) %>%
+    dplyr::mutate(
+      line_color = "gray50", #gray_colors()[as.numeric(effect_class)],
+      text_color = ifelse(as.numeric(effect_class) %in% c(1,2,3,6), "black", "white"),
+      )
+
+  print(dp %>% dplyr::select(effect_class, line_color, text_color))
 
   if (mle_class) {
 
@@ -66,7 +72,7 @@ plot_cs_est <- function(data, vars,
 
 
     gp <- ggplot(dp) +
-      geom_hline(aes(yintercept = 0))
+      geom_hline(aes(yintercept = 0), color = "gray25")
 
       if (!mle_class) {
 
@@ -80,39 +86,37 @@ plot_cs_est <- function(data, vars,
           geom_errorbar(aes(x = n.events_plot, ymin = lb95,
                             ymax = ub95, col = as.factor(ub)), width = 0.3) +
           prior_ub_labels() +
-          geom_label(
+          geom_label( ## Just for the label background/outline
             data = dp %>% dplyr::filter(ub == 1000),
             aes(x = n.events_plot- 0.8,
                 y = loghr_lims[1] + 0.5,
-                label = effect_class,
-                fill = as.factor(effect_class),
-                alpha = as.factor(effect_class)
-                ), label.padding = unit(0.1, "lines"),
-            #vjust = 1, hjust = 0.75,
+                label = "        ",
+                fill = as.factor(effect_class)
+                ),
+            color = dp %>% dplyr::filter(ub == 1000) %>% dplyr::pull(line_color),
+            label.padding = unit(0.1, "lines"),
             size = 3) +
-          scale_fill_manual(values = fill_values, guide = "none") +
-          scale_alpha_manual(values = alpha_values, guide = "none")
+          geom_text( ## Just for the label text
+            data = dp %>% dplyr::filter(ub == 1000),
+            aes(x = n.events_plot- 0.8,
+                y = loghr_lims[1] + 0.5,
+                label = effect_class),
+                color = dp %>% dplyr::filter(ub == 1000) %>% dplyr::pull(text_color),
+            size = 3) +
+          scale_fill_manual(values = fill_values, guide = "none")
 
       } else {
 
         gp <- gp + geom_point(aes(n.events_plot, beta,
                                   col = as.factor(effect_class),
                               shape = as.factor(effect_class)),
-                              #alpha = as.factor(effect_class)),
                               size = 2)  +
           geom_line(aes(n.events_plot, beta), col = "gray75") +
           geom_errorbar(aes(x = n.events_plot, ymin = lb95,
                             ymax = ub95,
                             col = as.factor(effect_class),
-                            #alpha = as.factor(effect_class)
                             ),
                         width = 0.6) +
-          # scale_alpha_manual(values = c("1" = 1,
-          #                               "2" = 0.7,
-          #                               "3" = 1,
-          #                               "4" = 0.7,
-          #                               "5" = 1,
-          #                               "6" = 0.7)) +
           scale_color_viridis_d()
 
 
